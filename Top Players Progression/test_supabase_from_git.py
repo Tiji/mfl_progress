@@ -24,6 +24,6 @@ opts.postgrest_client_timeout = 60
 
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY, opts)
 
-old_players_batch = supabase.table("api.players").select("*").eq("playerid", 153041).execute().data
+old_players_batch = supabase.table("players").select("*").eq("playerid", 153041).execute().data
 df_old_batch = pd.DataFrame(old_players_batch) if old_players_batch else pd.DataFrame()
 print(f"📊 {len(df_old_batch)} joueurs existants chargés depuis Supabase pour ce lot.")
