@@ -1,12 +1,15 @@
 # supabase_utils.py
 from supabase import create_client, Client
-from config import SUPABASE_URL, SUPABASE_KEY
 from supabase.lib.client_options import ClientOptions
 from requests.exceptions import SSLError
 import urllib3
+import os
 
 # Désactiver le warning pour les requêtes non vérifiées
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+SUPABASE_URL = os.environ.get("SUPABASE_URL")
+SUPABASE_KEY = os.environ.get("SUPABASE_KEY")
 
 opts = ClientOptions().replace(schema="api")
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY, opts)

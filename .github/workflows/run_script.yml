@@ -23,7 +23,7 @@ jobs:
           pip install -r requirements.txt  # Installe les dépendances depuis requirements.txt
 
       - name: Run script
-        run: python "Top Players Progression"/players_progression_supabase.py  # Remplace par le nom de ton script
+        run: python "Top Players Progression"/test_supabase_from_git.py  # Remplace par le nom de ton script
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
