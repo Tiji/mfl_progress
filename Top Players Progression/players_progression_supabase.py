@@ -6,6 +6,7 @@ from supabase import create_client, Client
 from supabase.lib.client_options import ClientOptions
 from requests.exceptions import SSLError
 import urllib3
+from config import SUPABASE_URL, SUPABASE_KEY
 
 # Désactiver le warning pour les requêtes non vérifiées
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
@@ -13,13 +14,11 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 # ------------------------
 # ⚙️ CONFIGURATION SUPABASE
 # ------------------------
-url = "https://thahdpeierhttyrqdqdo.supabase.co"
-key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRoYWhkcGVpZXJodHR5cnFkcWRvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ5MTc5ODcsImV4cCI6MjA3MDQ5Mzk4N30.C8MRcF_5gsh5PN1lPqeWst-d_fiUg0jSRWdJpR8lAGE"
 opts = ClientOptions(
     schema="api",
     postgrest_client_timeout=60
 )
-supabase: Client = create_client(url, key, options=opts)
+supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY, opts)
 
 # ------------------------
 # 📅 PARAMÈTRES
@@ -27,25 +26,6 @@ supabase: Client = create_client(url, key, options=opts)
 limit = 1500
 pause_duration = 5
 today_str = datetime.now().strftime("%Y-%m-%d")
-
-# ------------------------
-# Attendre jusqu'à 02h05
-# ------------------------
-
-def wait_until(target_hour=23, target_minute=15):
-    """Attend jusqu'à l'heure cible (23:15 par défaut)."""
-    now = datetime.now()
-    target_time = now.replace(hour=target_hour, minute=target_minute, second=0, microsecond=0)
-    # Si l'heure cible est déjà passée aujourd'hui, on attend le lendemain
-    if now > target_time:
-        target_time = target_time + pd.Timedelta(days=1)
-    # Calculer le temps restant en secondes
-    delay = (target_time - now).total_seconds()
-    print(f"Attente jusqu'à {target_time} (dans {delay/3600:.1f} heures)...")
-    time.sleep(delay)
-
-# Attendre jusqu'à 02h05
-wait_until(2, 5)
 
 # ------------------------
 # 📥 FONCTIONS API
