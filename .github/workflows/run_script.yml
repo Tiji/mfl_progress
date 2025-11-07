@@ -1,0 +1,29 @@
+name: Run Data Script
+
+on:
+  schedule:
+    - cron: '5 00 * * *'  # Exécute tous les jours à 00h05 UTC
+  workflow_dispatch:  # Permet de déclencher manuellement le workflow
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install supabase pandas requests
+
+      - name: Run script
+        run: python "Top Players Progression"/players_progression_supabase.py  # Remplace par le nom de ton script
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
