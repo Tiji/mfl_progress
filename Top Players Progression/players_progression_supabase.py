@@ -6,7 +6,7 @@ from supabase import create_client, Client
 from supabase.lib.client_options import ClientOptions
 from requests.exceptions import SSLError
 import urllib3
-from config import SUPABASE_URL, SUPABASE_KEY
+import os
 
 # Désactiver le warning pour les requêtes non vérifiées
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
@@ -18,6 +18,10 @@ opts = ClientOptions(
     schema="api",
     postgrest_client_timeout=60
 )
+
+SUPABASE_URL = os.environ.get("SUPABASE_URL")
+SUPABASE_KEY = os.environ.get("SUPABASE_KEY")
+
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY, opts)
 
 # ------------------------
