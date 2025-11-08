@@ -2,7 +2,7 @@ name: Run Data Script
 
 on:
   schedule:
-    - cron: '5 00 * * *'  # Exécute tous les jours à 00h05 UTC
+    - cron: '30 08 * * *'  # Exécute tous les jours à 00h05 UTC
   workflow_dispatch:  # Permet de déclencher manuellement le workflow
 
 jobs:
